@@ -28,4 +28,4 @@ Use a plain description such as:
 
 > Visual Evidence Gateway is a local, read-only MCP server for text agents. It calls Luna through the user's Codex ChatGPT login, limits which images can be read, checks the backend result, and returns a short set of task-specific visual evidence.
 
-For a launch post, use [`docs/LAUNCH_POST.zh-CN.md`](docs/LAUNCH_POST.zh-CN.md). Add the actual host version and a successful call screenshot before publishing it.
+For a launch post, use [`docs/LAUNCH_POST.md`](docs/LAUNCH_POST.md). Add the actual host version and a successful call screenshot before publishing it.
