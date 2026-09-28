@@ -1,17 +1,16 @@
-# Visual Evidence Gateway — 发布前真实验收包
+# Visual Evidence Gateway 發布前實機驗收
 
-这个目录不是宣传材料，而是 **v0.5.0 发布闸门**。请在最终用户机器上运行，尤其是已经登录 ChatGPT、能够使用 Codex CLI 和 Luna 的机器。
+本目錄用於 v0.5.0 的發布前環境驗收。測試須在目標機器上實際執行，確認環境已完成 ChatGPT 登入，並能正常使用 Codex CLI 與 Luna。
 
-本地单元测试只能证明代码契约。它不能证明：
+本地單元測試無法涵蓋線上運行的關鍵條件：
+- ChatGPT 帳號是否具備 `gpt-5.6-luna` 調用權限
+- 請求是否確實走訂閱配額，而非 API Key 計費
+- 當前網路環境與服務負載下的真實延遲
+- Codex、OpenCode 等宿主能否正確辨識並調用 MCP 工具
+- 樣本在各類影像與提示注入測試下的真實返回表現
+- Windows PowerShell 安裝腳本是否能完整執行
 
-- 当前 ChatGPT 账号确实拥有 `gpt-5.6-luna`；
-- 调用确实走 ChatGPT 订阅访问，而不是 API Key 计费；
-- 用户所在地区、网络和当时服务负载下的真实延迟；
-- Codex、OpenCode/DeepSeek 等实际宿主能发现并调用 MCP 工具；
-- Luna 在 UI、图表、长图、比较、OCR 和提示注入样本上的真实质量；
-- Windows PowerShell 安装链是否完整可用。
-
-只有下面的 P0 项全部通过，才允许把版本标记为正式发布。
+必須全數通過以下 P0 檢驗項，方可確認版本發布。
 
 ## 最快执行方式
 

@@ -1,15 +1,20 @@
-# Visual Evidence Gateway 繁體中文說明
+# Visual Evidence Gateway 說明
 
-完整繁體中文說明已經移至儲存庫根目錄的 [`README.md`](../README.md)，其中包括：
+完整文件請參閱根目錄的 [`README.md`](../README.md)。
 
-- 一鍵安裝與真實像素驗收；
-- 為何相比直接貼圖、OCR、一般視覺 API 包裝器與 Computer Use 更適合文字代理；
-- 與 Codex 官方原生看圖的正面對比，以及為何 DeepSeek 主代理 + Luna 視覺專家更合適；
-- 本地橋接開銷實測與真實 Luna `elapsed_ms` 探針；
-- Luna 訂閱優先調用契約；
-- 最小上下文、裁剪/分塊重試、Schema 校驗與提示注入防護；
-- 安全邊界、配置、故障排查、升級與卸載。
+這套工具主要是為文字為主的 Agent（如 DeepSeek 或 OpenCode）設計的輕量視覺通道。當任務需要辨識截圖或圖表時，Agent 可以透過一個唯讀的 MCP 工具調用 Luna，取回少量的結構化關鍵證據，而不需要把整張圖或長篇 OCR 文本直接塞進對話上下文。
 
-## 發布前真實驗收
+核心機制包括：
+- 調用時鎖定 ChatGPT 訂閱配額下的 Luna，不在未授權時退回付費 API 或替換模型
+- 嚴格限制上下文長度，支援大圖裁切、分塊與重試，並執行 Schema 與提示注入防護
+- 提供本地調用損耗與實際延遲探針
 
-公開發布前執行 `python pre_release_validation/run_validation.py --runs 5 --host-mcp`。本地測試只能證明代碼契約，不能證明帳號權限、訂閱路由、真實 Luna 延遲、宿主級 MCP 調用或跨平台安裝。詳見 `pre_release_validation/README.md` 與 `claims-matrix.md`。
+## 發布前驗收
+
+正式發布前，請在已登入環境執行實機驗收：
+
+```bash
+python pre_release_validation/run_validation.py --runs 5 --host-mcp
+```
+
+本地單元測試只能確認代碼沒有語法或邏輯錯誤，無法證明帳號的 Luna 權限、實際網路延遲以及 MCP 能否被宿主正確載入。測試細節與驗收標準可參考 `pre_release_validation/README.md` 與 `claims-matrix.md`。

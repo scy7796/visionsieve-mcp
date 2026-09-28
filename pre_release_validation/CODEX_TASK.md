@@ -1,10 +1,10 @@
-# 给 Codex 的执行任务：Visual Evidence Gateway v0.5.0 发布前真实验收
+# Visual Evidence Gateway v0.5.0 實機驗收任務指引
 
-你正在审计一个准备公开发布的 MCP 项目。不要只阅读代码或复述 README。必须在当前机器上实际安装、运行、记录结果、修复可安全修复的问题，并重新验证。
+本任務用於驗收準備公開發布的 MCP 專案。驗收要求在當前機器上實際完成安裝、執行驗證、記錄數據，修復可安全處理的問題並重新測試。
 
-## 目标
+## 核心驗收目標
 
-判断 Visual Evidence Gateway v0.5.0 是否可以公开发布。重点验证：
+確認 Visual Evidence Gateway v0.5.0 是否具備發布條件：
 
 1. 默认链路是否确实为本机 Codex CLI + ChatGPT 登录 + `gpt-5.6-luna`；
 2. 是否会静默切换到 API Key 计费、默认模型、verifier 或 fallback；
