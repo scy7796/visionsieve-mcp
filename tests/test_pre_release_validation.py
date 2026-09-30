@@ -66,11 +66,30 @@ class PreReleaseValidationTest(unittest.TestCase):
 
     def test_codex_task_requires_execution_and_forbids_api_key(self):
         text = (self.validation / "CODEX_TASK.md").read_text(encoding="utf-8")
-        self.assertIn("必须在当前机器上实际安装、运行", text)
-        self.assertIn("不得创建或使用 API Key", text)
+        self.assertIn("請在目前的電腦上實際完成安裝、執行驗證", text)
+        self.assertIn("## 必須執行", text)
+        self.assertIn("不得建立或使用 API Key", text)
+        self.assertIn("不得讀取、輸出、複製或提交 `~/.codex/auth.json` 的內容", text)
+        self.assertIn("python pre_release_validation/run_validation.py --runs 5 --host-mcp", text)
         self.assertIn("PASS", text)
         self.assertIn("CONDITIONAL PASS", text)
         self.assertIn("FAIL", text)
+
+    def test_taiwan_chinese_docs_do_not_mix_scripts_or_legacy_terms(self):
+        for relative in (
+            "docs/README.zh-TW.md",
+            "pre_release_validation/CODEX_TASK.md",
+            "pre_release_validation/README.md",
+            "pre_release_validation/claims-matrix.md",
+        ):
+            with self.subTest(document=relative):
+                text = (self.root / relative).read_text(encoding="utf-8")
+                self.assertNotRegex(
+                    text,
+                    r"[\u8c03\u8fd0\u4ed3\u53d1\u8d26\u5e10\u7801\u7f13\u6267\u56fe"
+                    r"\u7f51\u8fd9\u5f53\u7ea7\u4f1a\u9879\u73b0\u7b7e\u636e\u8bf7"
+                    r"\u9884\u6237\u8bf4\u8bed]|調用|代碼|本地|文本",
+                )
 
 
 if __name__ == "__main__":
